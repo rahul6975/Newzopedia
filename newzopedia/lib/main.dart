@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
                     country != null ? Text("Country = $cName") : Container(),
                     SizedBox(height: 10),
                     catagory != null
-                        ? Text("Catagory = $catagory")
+                        ? Text("Category = $catagory")
                         : Container(),
                     SizedBox(height: 20),
                   ],
@@ -183,7 +183,7 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
               ExpansionTile(
-                title: Text("Catagory"),
+                title: Text("Category"),
                 children: [
                   for (int i = 0; i < listOfCatagory.length; i++)
                     DropDownList(
