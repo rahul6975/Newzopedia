@@ -96,8 +96,4 @@ var listOfNewsChannel = [
     "code": "fox-news",
     "name": "Fox News",
   },
-  {
-    "code": "fox-news",
-    "name": "Fox News",
-  },
 ];
