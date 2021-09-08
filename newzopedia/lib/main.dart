@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'CountryList.dart';
 import 'NewsModel.dart';
 
@@ -73,10 +72,12 @@ class _MyAppState extends State<MyApp> {
         } else {
           news = jsonDecode(res.body)['articles'];
         }
-        setState(() {
-          notFound = false;
-          isLoading = false;
-        });
+        setState(
+          () {
+            notFound = false;
+            isLoading = false;
+          },
+        );
       }
     } else {
       setState(() => notFound = true);
@@ -208,7 +209,7 @@ class _MyAppState extends State<MyApp> {
               ),
               ListTile(
                 title: Text("Exit"),
-                onTap: () => exit(0),
+                onTap: () => exit(1),
               ),
             ],
           ),
