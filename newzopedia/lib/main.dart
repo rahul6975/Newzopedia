@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,6 +83,19 @@ class _MyAppState extends State<MyApp> {
     } else {
       setState(() => notFound = true);
     }
+  }
+
+  void periodic() {
+    Timer.periodic(
+      Duration(seconds: 1),
+      (Timer time) {
+        print("Closing app in  ${5 - time.tick} seconds");
+        if (time.tick == 5) {
+          time.cancel();
+          exit(0);
+        }
+      },
+    );
   }
 
   getNews({channel, searchKey, reload = false}) async {
@@ -209,7 +223,10 @@ class _MyAppState extends State<MyApp> {
               ),
               ListTile(
                 title: Text("Exit"),
-                onTap: () => exit(1),
+                onTap: () {
+                  periodic();
+                  // exit(1);
+                },
               ),
             ],
           ),
@@ -273,33 +290,37 @@ class _MyAppState extends State<MyApp> {
                                       borderRadius: BorderRadius.circular(30)),
                                   child: Column(
                                     children: [
-                                      Stack(children: [
-                                        news[index]['urlToImage'] == null
-                                            ? Container()
-                                            : ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                child: CachedNetworkImage(
-                                                  placeholder: (context, url) =>
-                                                      Container(
-                                                          child:
-                                                              CircularProgressIndicator()),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
-                                                  imageUrl: news[index]
-                                                      ['urlToImage'],
+                                      Stack(
+                                        children: [
+                                          news[index]['urlToImage'] == null
+                                              ? Container()
+                                              : ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  child: CachedNetworkImage(
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        Container(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                    imageUrl: news[index]
+                                                        ['urlToImage'],
+                                                  ),
                                                 ),
-                                              ),
-                                        Positioned(
-                                          bottom: 10,
-                                          right: 20,
-                                          child: Text(
-                                            "${news[index]['source']['name']}",
-                                            style: TextStyle(color: Colors.red),
+                                          Positioned(
+                                            bottom: 10,
+                                            right: 20,
+                                            child: Text(
+                                              "${news[index]['source']['name']}",
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
                                           ),
-                                        ),
-                                      ]),
+                                        ],
+                                      ),
                                       Divider(),
                                       Text(
                                         "${news[index]['title']}",
