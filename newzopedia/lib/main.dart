@@ -27,7 +27,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var cName;
   var country;
-  var catagory;
+  var category;
   var findNews;
   int pageNum = 1;
   bool isPageLoading = false;
@@ -105,7 +105,7 @@ class _MyAppState extends State<MyApp> {
       toggleDrawer();
     } else {
       country = null;
-      catagory = null;
+      category = null;
     }
     if (isLoading) {
       pageNum++;
@@ -118,17 +118,17 @@ class _MyAppState extends State<MyApp> {
     baseApi = "https://newsapi.org/v2/top-headlines?pageSize=10&page=$pageNum&";
 
     baseApi += country == null ? 'country=in&' : 'country=$country&';
-    baseApi += catagory == null ? '' : 'category=$catagory&';
+    baseApi += category == null ? '' : 'category=$category&';
     baseApi += 'apiKey=58b98b48d2c74d9c94dd5dc296ccf7b6';
     if (channel != null) {
       country = null;
-      catagory = null;
+      category = null;
       baseApi =
           "https://newsapi.org/v2/top-headlines?pageSize=10&page=$pageNum&sources=$channel&apiKey=58b98b48d2c74d9c94dd5dc296ccf7b6";
     }
     if (searchKey != null) {
       country = null;
-      catagory = null;
+      category = null;
       baseApi =
           "https://newsapi.org/v2/top-headlines?pageSize=10&page=$pageNum&q=$searchKey&apiKey=58b98b48d2c74d9c94dd5dc296ccf7b6";
     }
@@ -154,8 +154,8 @@ class _MyAppState extends State<MyApp> {
                   children: [
                     country != null ? Text("Country = $cName") : Container(),
                     SizedBox(height: 10),
-                    catagory != null
-                        ? Text("Category = $catagory")
+                    category != null
+                        ? Text("Category = $category")
                         : Container(),
                     SizedBox(height: 20),
                   ],
@@ -203,7 +203,7 @@ class _MyAppState extends State<MyApp> {
                   for (int i = 0; i < listOfCatagory.length; i++)
                     DropDownList(
                         call: () {
-                          catagory = listOfCatagory[i]['code'];
+                          category = listOfCatagory[i]['code'];
                           getNews();
                         },
                         name: listOfCatagory[i]['name']!.toUpperCase())
@@ -238,7 +238,7 @@ class _MyAppState extends State<MyApp> {
             IconButton(
               onPressed: () {
                 country = null;
-                catagory = null;
+                category = null;
                 findNews = null;
                 cName = null;
                 getNews(reload: true);
@@ -327,7 +327,7 @@ class _MyAppState extends State<MyApp> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
